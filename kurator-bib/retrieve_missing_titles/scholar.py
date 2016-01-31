@@ -184,10 +184,38 @@ except ImportError:
 if sys.version_info[0] == 3:
     unicode = str # pylint: disable-msg=W0622
     encode = lambda s: s # pylint: disable-msg=C0103
+    '''# QZ
+    try:
+        unicode = str
+    except:
+        str_new = str.encode('utf-8')
+        unicode = str_new.encode('utf-8')
+    encode = lambda s: s # pylint: disable-msg=C0103
+    '''
 else:
+    '''def encode(s):
+        if isinstance(s, basestring):
+            return s.encode('utf-8') # pylint: disable-msg=C0103     
+        else:
+            return str(s)
+    '''
+    '''# QZ: add condition of "python 'ascii' codec can't decode byte", source http://blog.webforefront.com/archives/2011/02/python_ascii_co.html 
     def encode(s):
         if isinstance(s, basestring):
-            return s.encode('utf-8') # pylint: disable-msg=C0103
+            try:
+                return s.encode('utf-8')
+            except:
+                s_new = s.decode('utf-8')
+                return s_new.encode('utf-8')
+        else:
+            return str(s)
+    '''
+    # QZ: source http://farmdev.com/talks/unicode/
+    def encode(s):
+        if isinstance(s, basestring):
+            if not isinstance(s, unicode):
+                s = unicode(s,'utf-8', errors='replace')
+            return s.encode('utf-8')     
         else:
             return str(s)
 
@@ -790,7 +818,8 @@ class SearchScholarQuery(ScholarQuery):
         if self.words is None and self.words_some is None \
            and self.words_none is None and self.phrase is None \
            and self.author is None and self.pub is None \
-           and self.timeframe[0] is None and self.timeframe[1] is None:
+           and self.timeframe[0] is None and self.timeframe[1] is None \
+           and self.scope_title is None:  # QZ
             raise QueryArgumentError('search query needs more parameters')
 
         # If we have some-words or none-words lists, we need to
@@ -1094,18 +1123,20 @@ def txt(querier, with_globals):
     for art in articles:
         print(encode(art.as_txt()) + '\n')
 
-def csv(querier, header=False, sep='|'):
+def fcsv(querier, header=False, sep='|'):
     articles = querier.articles
     for art in articles:
         result = art.as_csv(header=header, sep=sep)
         print(encode(result))
         header = False
-        return(encode(result))  # return for function call, edited by QZ
-
+        
 def citation_export(querier):
     articles = querier.articles
+    lst_result = list()
     for art in articles:
-        print(art.as_citation() + '\n')
+        # print(art.as_citation() + '\n')
+        lst_result.append(art.as_citation())    # QZ
+    return lst_result
 
 
 def main():
@@ -1256,9 +1287,9 @@ scholar.py -c 5 -a "albert einstein" -t --none "quantum theory" --after 1970"""
     querier.send_query(query)
 
     if options.csv:
-        csv(querier)
+        fcsv(querier)
     elif options.csv_header:
-        csv(querier, header=True)
+        fcsv(querier, header=True)
     elif options.citation is not None:
         citation_export(querier)
     else:
