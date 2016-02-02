@@ -2,7 +2,7 @@
 
 
 ### Description
-This repot has two sub-directories. 
+This repository has two sub-directories. 
 
 1. The Kurator-bib is for cleaning bib records. This specific experiment is to retrive missing titles in the bib records. The methodology used inhere is to make queries from Google Scholar. The origianl input data is mczbase_IP_publications_2015Aug28.csv. The main code is retrieve_titles.py, which imports module scholar.py. Place the BeautifulSoup.py is required, serving as a Python library for pulling data out of HTML and XML. All those two files should be placed in the same folder as your Python code. test.py is used for single bib record while retrieve_titles.py is used for batch processing from a csv file.
 
