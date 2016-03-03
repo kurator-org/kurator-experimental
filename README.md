@@ -29,4 +29,5 @@ b). run the main function to retrive missing titles from Google Scholar:
   - [national museum of natural history] (http://si-pwebsrch02.si.edu/search?q=&btnG.x=18&btnG.y=7&site=nmnh&client=nmnh_mainsite&proxystylesheet=nmnh_mainsite&output=xml_no_dtd)
   - [American museum of natural history] (http://www.amnh.org/our-research/research-library/library-catalog/)
 
-2. The second repo is using Python to develop a frontend interface for Kurator workflow. The web app is based on Flask framework and it is still under development.
+
+2.The second repo is using Python to develop a frontend interface for Kurator workflow. The web app is based on Flask framework and it is still under development.
