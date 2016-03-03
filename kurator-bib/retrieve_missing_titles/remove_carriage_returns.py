@@ -17,10 +17,7 @@ def remove_carriage_returns(fr, fw):
     writer = write_csv(fw)
     for row in reader:
         row_fw = []
-        # print ("Length: ", len(row), row)
         for field in row:
-            # print field
-            # if '\r\n' in field:
             if field:
                 field = field.replace('\n', ' ').replace('\r', '')
             row_fw.append(field)
