@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-     
-# Defining Python Source Code Encodings https://www.python.org/dev/peps/pep-0263/
 import scholar
 import timestamp
 import os
