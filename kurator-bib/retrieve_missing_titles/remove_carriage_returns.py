@@ -6,8 +6,8 @@ def read_csv(fr):
     reader = csv.reader(fr, delimiter=',', dialect=csv.excel)
     return reader
 def write_csv(fw):
-    fw = open(sys.argv[2],'w')
-    writer = csv.writer(fw,lineterminator='\n')
+    fw = open(sys.argv[2], 'w')
+    writer = csv.writer(fw, lineterminator='\n')
     return writer
 
 
