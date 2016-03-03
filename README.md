@@ -7,12 +7,15 @@ This repository has two sub-directories.
 1. The Kurator-bib is for cleaning bib records. This specific experiment is to retrive missing titles in the bib records. The methodology used inhere is to make queries from Google Scholar. The origianl input data is mczbase_IP_publications_2015Aug28.csv. The main code is retrieve_titles.py, which imports module scholar.py. Place the BeautifulSoup.py is required, serving as a Python library for pulling data out of HTML and XML. All those two files should be placed in the same folder as your Python code. test.py is used for single bib record while retrieve_titles.py is used for batch processing from a csv file.
 
   To run the code, 
+  
+a). remove the carriage returns in original csv file:
+  
+    $ python remove_carriage_returns.py mczbase_IP_publications_2015Aug28.csv mczbase_IP_publications_2015Aug28_remove_carriage_returns.csv 
+
+b). run the main function to retrive missing titles from Google Scholar:
 
     $ python retrieve_titles.py
   
-  or 
-
-    $ python test.py
   
   ##### Issues
   The latest update has fixed two erros and now has retrieved dataset store in output/ directory. The current status is 62 out of 581 bib records have been found a match through Google Scholar. The next steps are: 
